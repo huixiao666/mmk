@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>sing-box 1.11.4 配置注释 · 修复稳定版</title>
+    <title>sing-box 配置注释 · 1.11.4 修复版</title>
     <style>
-        /* 日夜模式全局变量 */
         :root {
             --bg-body: #eef2f7;
             --bg-container: #ffffff;
-            --header-bg: #0a2b3c;
+            --header-bg: #1a3a4a;
             --header-text: #ffffff;
             --th-bg: #e9f0f6;
             --th-border: #cbdde6;
@@ -21,23 +20,19 @@
             --comment-bg: #f1fdf5;
             --info-bg: #f8fafc;
             --info-text: #1e293b;
-            --border-light: #e2e8f0;
+            --border-light: #f0f4f8;
             --btn-bg: #e2e8f0;
             --btn-text: #1e293b;
-            --btn-active-bg: #0a2b3c;
+            --btn-active-bg: #1a3a4a;
             --btn-active-text: #ffffff;
-            --copy-btn-bg: #2563eb;
-            --copy-btn-hover: #1d4ed8;
-            --scrollbar-thumb: #cbd5e1;
-            --scrollbar-track: #f1f5f9;
-            --inline-code-bg: #e0e7ff;
-            --inline-code-text: #1e40af;
+            --highlight-bg: #fffbeb;
+            --highlight-border: #f59e0b;
         }
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-body: #1a1e2a;
                 --bg-container: #252b3a;
-                --header-bg: #162b3a;
+                --header-bg: #14222e;
                 --header-text: #f0f6fc;
                 --th-bg: #2d3548;
                 --th-border: #3f4a60;
@@ -54,19 +49,14 @@
                 --btn-text: #e2e8f0;
                 --btn-active-bg: #3b82f6;
                 --btn-active-text: #ffffff;
-                --copy-btn-bg: #3b82f6;
-                --copy-btn-hover: #2563eb;
-                --scrollbar-thumb: #475569;
-                --scrollbar-track: #1e293b;
-                --inline-code-bg: #334155;
-                --inline-code-text: #bfdbfe;
+                --highlight-bg: #2a2410;
+                --highlight-border: #f59e0b;
             }
         }
-        /* 手动主题强制类 */
         body.light {
             --bg-body: #eef2f7;
             --bg-container: #ffffff;
-            --header-bg: #0a2b3c;
+            --header-bg: #1a3a4a;
             --header-text: #ffffff;
             --th-bg: #e9f0f6;
             --th-border: #cbdde6;
@@ -78,22 +68,18 @@
             --comment-bg: #f1fdf5;
             --info-bg: #f8fafc;
             --info-text: #1e293b;
-            --border-light: #e2e8f0;
+            --border-light: #f0f4f8;
             --btn-bg: #e2e8f0;
             --btn-text: #1e293b;
-            --btn-active-bg: #0a2b3c;
+            --btn-active-bg: #1a3a4a;
             --btn-active-text: #ffffff;
-            --copy-btn-bg: #2563eb;
-            --copy-btn-hover: #1d4ed8;
-            --scrollbar-thumb: #cbd5e1;
-            --scrollbar-track: #f1f5f9;
-            --inline-code-bg: #e0e7ff;
-            --inline-code-text: #1e40af;
+            --highlight-bg: #fffbeb;
+            --highlight-border: #f59e0b;
         }
         body.dark {
             --bg-body: #1a1e2a;
             --bg-container: #252b3a;
-            --header-bg: #162b3a;
+            --header-bg: #14222e;
             --header-text: #f0f6fc;
             --th-bg: #2d3548;
             --th-border: #3f4a60;
@@ -110,816 +96,801 @@
             --btn-text: #e2e8f0;
             --btn-active-bg: #3b82f6;
             --btn-active-text: #ffffff;
-            --copy-btn-bg: #3b82f6;
-            --copy-btn-hover: #2563eb;
-            --scrollbar-thumb: #475569;
-            --scrollbar-track: #1e293b;
-            --inline-code-bg: #334155;
-            --inline-code-text: #bfdbfe;
+            --highlight-bg: #2a2410;
+            --highlight-border: #f59e0b;
         }
-
-        /* 全局初始化 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { 
-            background: var(--bg-body); 
-            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif; 
-            padding: 1rem; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: var(--bg-body);
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+            padding: 1rem;
             color: var(--info-text);
-            transition: background 0.2s ease, color 0.2s ease;
-            line-height: 1.5;
+            transition: background 0.2s, color 0.2s;
+            line-height: 1.6;
         }
-
-        /* 容器样式 */
-        .container { 
-            max-width: 1800px; 
-            margin: 0 auto; 
-            background: var(--bg-container); 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px -8px rgba(0,0,0,0.12); 
-            overflow: hidden; 
+        .container {
+            max-width: 1700px;
+            margin: 0 auto;
+            background: var(--bg-container);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-
-        /* 头部样式修复 */
-        .header { 
-            background: var(--header-bg); 
-            color: var(--header-text); 
-            padding: 1.2rem 1.5rem; 
+        .header {
+            background: var(--header-bg);
+            color: var(--header-text);
+            padding: 1.4rem 1.8rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1rem;
-            position: relative;
-            z-index: 20;
+            gap: 0.8rem;
         }
-        .header-title h1 { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 600; line-height: 1.3; }
-        .header-title p { margin-top: 0.4rem; opacity: 0.9; font-size: 0.9rem; }
-        .header-tools { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
-        .theme-switcher { display: flex; gap: 0.5rem; }
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .header .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 6px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+        .header p {
+            margin-top: 0.3rem;
+            opacity: 0.9;
+            font-size: 0.85rem;
+        }
+        .theme-switcher {
+            display: flex;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
         .theme-btn {
             background: var(--btn-bg);
             color: var(--btn-text);
             border: none;
             border-radius: 20px;
             padding: 0.4rem 0.9rem;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             font-weight: 500;
+            white-space: nowrap;
         }
         .theme-btn.active {
             background: var(--btn-active-bg);
             color: var(--btn-active-text);
         }
-        .copy-btn {
-            background: var(--copy-btn-bg);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0.4rem 1rem;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            font-weight: 500;
-        }
-        .copy-btn:hover { background: var(--copy-btn-hover); }
-        .copy-btn.success { background: #10b981; }
-
-        /* 表格容器修复 - 解决表头吸顶失效问题 */
-        .table-wrapper {
-            overflow-x: auto;
-            position: relative;
-            max-height: calc(100vh - 280px);
-            overflow-y: auto;
-        }
-        /* 表格核心样式修复 */
-        .config-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            font-size: 0.8rem;
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.73rem;
             table-layout: fixed;
         }
-        /* 表头吸顶修复 */
-        .config-table th { 
-            text-align: left; 
-            background: var(--th-bg); 
-            padding: 0.9rem 0.7rem; 
-            font-weight: 600; 
-            position: sticky; 
-            top: 0; 
-            z-index: 10;
-            backdrop-filter: blur(6px); 
-            border-bottom: 2px solid var(--th-border); 
+        .config-table col.col-line {
+            width: 52px;
+        }
+        .config-table col.col-code {
+            width: 48%;
+        }
+        .config-table col.col-comment {
+            width: auto;
+        }
+        .config-table th {
+            text-align: left;
+            background: var(--th-bg);
+            padding: 0.7rem 0.5rem;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            border-bottom: 2px solid var(--th-border);
             color: var(--info-text);
+            font-size: 0.75rem;
+            letter-spacing: 0.2px;
         }
-        /* 列宽固定修复 */
-        .config-table th:nth-child(1) { width: 60px; min-width: 60px; }
-        .config-table th:nth-child(2) { width: 50%; min-width: 400px; }
-        .config-table th:nth-child(3) { width: calc(50% - 60px); min-width: 350px; }
-
-        .config-table td { 
-            padding: 0.7rem; 
-            border-bottom: 1px solid var(--border-light); 
+        .config-table td {
+            padding: 0.45rem 0.5rem;
+            border-bottom: 1px solid var(--border-light);
             vertical-align: top;
-            line-height: 1.6;
         }
-        /* 行号列修复 */
-        .line-num { 
-            text-align: right; 
-            color: var(--line-num-text); 
-            background: var(--line-num-bg); 
-            user-select: none; 
-            font-family: monospace;
+        .line-num {
+            text-align: right;
+            color: var(--line-num-text);
+            background: var(--line-num-bg);
+            user-select: none;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.7rem;
+            padding-right: 0.6rem !important;
         }
-        /* 代码单元格修复 - 解决缩进错乱问题 */
-        .code-cell { 
-            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace; 
-            white-space: pre;
-            word-break: break-all;
-            overflow-wrap: break-word;
-            color: var(--code-text); 
-            background: var(--code-bg); 
-            tab-size: 2;
-        }
-        /* 注释单元格修复 */
-        .comment-cell { 
-            color: var(--comment-text); 
-            background: var(--comment-bg); 
-            line-height: 1.6; 
+        .code-cell {
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Menlo', monospace;
+            white-space: pre-wrap;
             word-break: break-word;
+            color: var(--code-text);
+            background: var(--code-bg);
+            font-size: 0.72rem;
+            letter-spacing: -0.1px;
         }
-        /* 表格斑马纹优化 */
-        .config-table tbody tr:nth-child(even) .code-cell { filter: brightness(0.98); }
-        .config-table tbody tr:nth-child(even) .comment-cell { filter: brightness(0.98); }
-        .config-table tbody tr:hover td { filter: brightness(0.97); transition: filter 0.1s ease; }
-
-        /* 说明盒子样式优化 */
+        .comment-cell {
+            color: var(--comment-text);
+            background: var(--comment-bg);
+            line-height: 1.55;
+            font-size: 0.73rem;
+            padding: 0.5rem 0.6rem !important;
+        }
+        .comment-cell .tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            border-radius: 3px;
+            padding: 0.1rem 0.35rem;
+            margin-right: 0.2rem;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+        .tag-notice {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .tag-warn {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .tag-tip {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .tag-info {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        .highlight-row {
+            background: var(--highlight-bg) !important;
+            border-left: 3px solid var(--highlight-border);
+        }
+        .highlight-row .code-cell {
+            font-weight: 600;
+        }
         .info-box {
             background: var(--info-bg);
             padding: 1.2rem 1.5rem;
-            margin: 1rem;
-            border-radius: 8px;
+            margin: 1.2rem;
+            border-radius: 10px;
             color: var(--info-text);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             line-height: 1.7;
+            border: 1px solid var(--border-light);
+        }
+        .info-box strong {
+            color: var(--code-text);
         }
         .info-box code {
-            background: var(--inline-code-bg);
-            color: var(--inline-code-text);
-            padding: 0.15rem 0.4rem;
+            background: var(--code-bg);
+            padding: 0.1rem 0.4rem;
             border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.9em;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.78rem;
         }
-        .info-box strong { font-weight: 600; }
-
-        /* 滚动条样式适配日夜模式 */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--scrollbar-track); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { filter: brightness(0.9); }
-
-        /* 响应式布局修复 */
-        @media (max-width: 1200px) {
-            .config-table th:nth-child(2) { width: 55%; }
-            .config-table th:nth-child(3) { width: calc(45% - 60px); }
+        .diff-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 4px;
+            padding: 0.1rem 0.5rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            margin-left: 0.3rem;
+            vertical-align: middle;
+            letter-spacing: 0.3px;
         }
-        @media (max-width: 768px) {
-            body { padding: 0.5rem; }
-            .header { padding: 1rem; flex-direction: column; align-items: flex-start; }
-            .header-tools { width: 100%; justify-content: space-between; }
-            .config-table { table-layout: auto; min-width: 900px; }
-            .config-table th, .config-table td { padding: 0.5rem 0.4rem; }
-            .code-cell, .comment-cell { font-size: 0.75rem; }
-            .info-box { margin: 0.5rem; padding: 1rem; }
-            .table-wrapper { max-height: calc(100vh - 320px); }
+        @media (max-width: 900px) {
+            .config-table {
+                font-size: 0.68rem;
+            }
+            .config-table col.col-line {
+                width: 38px;
+            }
+            .config-table col.col-code {
+                width: 44%;
+            }
+            .code-cell {
+                font-size: 0.66rem;
+            }
+            .comment-cell {
+                font-size: 0.67rem;
+                padding: 0.35rem 0.4rem !important;
+            }
+            .config-table td,
+            .config-table th {
+                padding: 0.35rem 0.35rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .header h1 {
+                font-size: 1.2rem;
+            }
         }
-        @media (max-width: 480px) {
-            .theme-switcher { gap: 0.3rem; }
-            .theme-btn { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
-            .copy-btn { padding: 0.3rem 0.7rem; font-size: 0.75rem; }
+        @media (max-width: 600px) {
+            body {
+                padding: 0.3rem;
+            }
+            .container {
+                border-radius: 8px;
+            }
+            .config-table col.col-code {
+                width: 38%;
+            }
+            .code-cell {
+                font-size: 0.6rem;
+            }
+            .comment-cell {
+                font-size: 0.6rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <div class="header-title">
-            <h1>📄 sing-box 1.11.4 稳定版配置逐行注释 (修复版)</h1>
-            <p>✅ 完全兼容1.11.4正式版 · 修复首次启动无代理问题 · 节点信息需自行填入</p>
-        </div>
-        <div class="header-tools">
-            <button class="copy-btn" id="copyConfigBtn">📋 一键复制完整配置</button>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📄 sing-box 完整配置逐行注释 <span class="badge">v1.11.4 修复版</span></h1>
+                <p>✅ 经典稳定版 · 适配 1.11.4 版本 · 内置CF双优选节点 / 规则集分流 / 广告拦截 / RDRC缓存</p>
+            </div>
             <div class="theme-switcher">
                 <button class="theme-btn active" data-theme="auto">🌓 自动</button>
                 <button class="theme-btn" data-theme="light">☀️ 亮色</button>
                 <button class="theme-btn" data-theme="dark">🌙 暗色</button>
             </div>
         </div>
+
+        <div style="overflow-x: auto;">
+            <table class="config-table">
+                <colgroup>
+                    <col class="col-line">
+                    <col class="col-code">
+                    <col class="col-comment">
+                </colgroup>
+                <thead>
+                    <tr><th>行号</th><th>配置代码</th><th>注释 / 详细说明 / 引导</th></tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+
+        <div class="info-box">
+            <strong>📌 使用说明：</strong><br>
+            1. 本表格完全基于 <code>1.11.4修复.txt</code> 生成，配置代码列可直接复制拼接使用；<br>
+            2. 节点核心参数（UUID、WS路径、Host、SNI）需自行替换；<br>
+            3. 四层DNS架构：dns-resolver → dns-direct → dns-proxy → dns-block；<br>
+            4. 与 v1.13.11 差异：independent_cache / store_rdrc / network:tcp / insecure:false；<br>
+            5. 原始配置中 `domain_suffix` 数组内的 `"geosite-cn"` 不是合法域名后缀，已在注释中标注；<br>
+            6. 复制「配置代码」列内容，替换占位符后即可导入 sing-box 使用。
+        </div>
     </div>
-    <!-- 表格容器修复 - 解决表头吸顶失效 -->
-    <div class="table-wrapper">
-        <table class="config-table">
-            <thead>
-                <tr>
-                    <th>行号</th>
-                    <th>配置代码</th>
-                    <th>注释 / 详细说明 / 疑惑解答</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- 动态生成 -->
-            </tbody>
-        </table>
-    </div>
-    <div class="info-box">
-        <strong>📌 使用说明：</strong><br>
-        1. 本表格完全基于 <code>1.11.4修复.txt</code> 生成，字段100%兼容sing-box 1.11.4正式版，无高版本不兼容语法；<br>
-        2. 出站列表中的 <code>🚀 CF-优选-Visa / DO</code> 为模板占位节点，必须替换为自己的真实VLESS节点信息（server、uuid、path、server_name等）；<br>
-        3. 【核心修复点】规则集、UI面板下载默认走 <code>direct</code> 直连，无需代理即可完成首次启动的资源下载，解决了「无代理无法下载规则集，无规则集无法启动代理」的死循环问题；<br>
-        4. DNS采用分流设计：国内域名走阿里DoH直连解析，海外域名走Cloudflare DoH代理解析，彻底避免DNS污染；<br>
-        5. 点击右上角「一键复制完整配置」按钮，替换节点信息后，可直接导入sing-box 1.11.4版本所有客户端使用。
-    </div>
-</div>
-<script>
-(function() {
-    'use strict';
-    // ----- 1.11.4修复版 规范JSON配置内容 (逐行数组，缩进完全规范，JSON语法100%正确) -----
-    const configLines = [
-        "{",
-        "  \"log\": {",
-        "    \"level\": \"info\",",
-        "    \"timestamp\": true",
-        "  },",
-        "  \"dns\": {",
-        "    \"servers\": [",
-        "      {",
-        "        \"tag\": \"dns-resolver\",",
-        "        \"address\": \"223.5.5.5\",",
-        "        \"detour\": \"direct\"",
-        "      },",
-        "      {",
-        "        \"tag\": \"dns-direct\",",
-        "        \"address\": \"https://dns.alidns.com/dns-query\",",
-        "        \"address_resolver\": \"dns-resolver\",",
-        "        \"detour\": \"direct\"",
-        "      },",
-        "      {",
-        "        \"tag\": \"dns-proxy\",",
-        "        \"address\": \"https://1.1.1.1/dns-query\",",
-        "        \"address_resolver\": \"dns-resolver\",",
-        "        \"detour\": \"proxy\"",
-        "      },",
-        "      {",
-        "        \"tag\": \"dns-block\",",
-        "        \"address\": \"rcode://success\"",
-        "      }",
-        "    ],",
-        "    \"rules\": [",
-        "      {",
-        "        \"rule_set\": [\"geosite-category-ads-all\"],",
-        "        \"server\": \"dns-block\",",
-        "        \"disable_cache\": true",
-        "      },",
-        "      {",
-        "        \"domain_suffix\": [\"raw.githubusercontent.com\"],",
-        "        \"server\": \"dns-direct\"",
-        "      },",
-        "      {",
-        "        \"domain_suffix\": [\".cn\"],",
-        "        \"server\": \"dns-direct\"",
-        "      },",
-        "      {",
-        "        \"rule_set\": \"geosite-cn\",",
-        "        \"server\": \"dns-direct\"",
-        "      },",
-        "      {",
-        "        \"rule_set\": [\"geosite-geolocation-!cn\"],",
-        "        \"server\": \"dns-proxy\"",
-        "      }",
-        "    ],",
-        "    \"final\": \"dns-proxy\",",
-        "    \"independent_cache\": true",
-        "  },",
-        "  \"ntp\": {",
-        "    \"enabled\": true,",
-        "    \"interval\": \"30m\",",
-        "    \"server\": \"ntp.aliyun.com\",",
-        "    \"server_port\": 123",
-        "  },",
-        "  \"inbounds\": [",
-        "    {",
-        "      \"type\": \"mixed\",",
-        "      \"tag\": \"mixed-in\",",
-        "      \"listen\": \"127.0.0.1\",",
-        "      \"listen_port\": 7890,",
-        "      \"set_system_proxy\": false",
-        "    },",
-        "    {",
-        "      \"type\": \"tun\",",
-        "      \"tag\": \"tun-in\",",
-        "      \"mtu\": 1500,",
-        "      \"address\": [\"172.19.0.1/30\", \"fdfe:dcba:9876::1/126\"],",
-        "      \"auto_route\": true,",
-        "      \"strict_route\": true,",
-        "      \"stack\": \"gvisor\",",
-        "      \"endpoint_independent_nat\": true",
-        "    }",
-        "  ],",
-        "  \"outbounds\": [",
-        "    {",
-        "      \"type\": \"direct\",",
-        "      \"tag\": \"direct\"",
-        "    },",
-        "    {",
-        "      \"type\": \"selector\",",
-        "      \"tag\": \"proxy\",",
-        "      \"outbounds\": [",
-        "        \"auto\",",
-        "        \"🚀 CF-优选-Visa\",",
-        "        \"🚀 CF-优选-DO\"",
-        "      ],",
-        "      \"default\": \"auto\"",
-        "    },",
-        "    {",
-        "      \"type\": \"urltest\",",
-        "      \"tag\": \"auto\",",
-        "      \"outbounds\": [",
-        "        \"🚀 CF-优选-Visa\",",
-        "        \"🚀 CF-优选-DO\"",
-        "      ],",
-        "      \"url\": \"https://www.gstatic.com/generate_204\",",
-        "      \"interval\": \"3m\",",
-        "      \"tolerance\": 50",
-        "    },",
-        "    {",
-        "      \"type\": \"vless\",",
-        "      \"tag\": \"🚀 CF-优选-Visa\",",
-        "      \"server\": \"CF优选域名\",",
-        "      \"server_port\": 443,",
-        "      \"uuid\": \"uuid\",",
-        "      \"tcp_fast_open\": false,",
-        "      \"tls\": {",
-        "        \"enabled\": true,",
-        "        \"server_name\": \"节点域名\",",
-        "        \"insecure\": false",
-        "      },",
-        "      \"transport\": {",
-        "        \"type\": \"ws\",",
-        "        \"path\": \"/路径\",",
-        "        \"headers\": {",
-        "          \"host\": \"节点域名\"",
-        "        }",
-        "      },",
-        "      \"network\": \"tcp\"",
-        "    },",
-        "    {",
-        "      \"type\": \"vless\",",
-        "      \"tag\": \"🚀 CF-优选-DO\",",
-        "      \"server\": \"CF优选域名\",",
-        "      \"server_port\": 443,",
-        "      \"uuid\": \"uuid\",",
-        "      \"tcp_fast_open\": false,",
-        "      \"tls\": {",
-        "        \"enabled\": true,",
-        "        \"server_name\": \"节点域名\",",
-        "        \"insecure\": false",
-        "      },",
-        "      \"transport\": {",
-        "        \"type\": \"ws\",",
-        "        \"path\": \"/路径\",",
-        "        \"headers\": {",
-        "          \"host\": \"节点域名\"",
-        "        }",
-        "      },",
-        "      \"network\": \"tcp\"",
-        "    }",
-        "  ],",
-        "  \"route\": {",
-        "    \"rule_set\": [",
-        "      {",
-        "        \"type\": \"remote\",",
-        "        \"tag\": \"geoip-cn\",",
-        "        \"format\": \"binary\",",
-        "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs\",",
-        "        \"download_detour\": \"direct\",",
-        "        \"update_interval\": \"24h\"",
-        "      },",
-        "      {",
-        "        \"type\": \"remote\",",
-        "        \"tag\": \"geosite-cn\",",
-        "        \"format\": \"binary\",",
-        "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs\",",
-        "        \"download_detour\": \"direct\",",
-        "        \"update_interval\": \"24h\"",
-        "      },",
-        "      {",
-        "        \"type\": \"remote\",",
-        "        \"tag\": \"geosite-geolocation-!cn\",",
-        "        \"format\": \"binary\",",
-        "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs\",",
-        "        \"download_detour\": \"direct\",",
-        "        \"update_interval\": \"24h\"",
-        "      },",
-        "      {",
-        "        \"type\": \"remote\",",
-        "        \"tag\": \"geosite-category-ads-all\",",
-        "        \"format\": \"binary\",",
-        "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs\",",
-        "        \"download_detour\": \"direct\",",
-        "        \"update_interval\": \"24h\"",
-        "      }",
-        "    ],",
-        "    \"rules\": [",
-        "      {",
-        "        \"action\": \"sniff\"",
-        "      },",
-        "      {",
-        "        \"protocol\": \"dns\",",
-        "        \"action\": \"hijack-dns\"",
-        "      },",
-        "      {",
-        "        \"ip_is_private\": true,",
-        "        \"outbound\": \"direct\"",
-        "      },",
-        "      {",
-        "        \"domain_suffix\": [\"raw.githubusercontent.com\"],",
-        "        \"outbound\": \"direct\"",
-        "      },",
-        "      {",
-        "        \"rule_set\": [\"geosite-category-ads-all\"],",
-        "        \"action\": \"reject\"",
-        "      },",
-        "      {",
-        "        \"rule_set\": [\"geosite-cn\", \"geoip-cn\"],",
-        "        \"outbound\": \"direct\"",
-        "      },",
-        "      {",
-        "        \"domain_suffix\": [\".cn\"],",
-        "        \"outbound\": \"direct\"",
-        "      },",
-        "      {",
-        "        \"rule_set\": \"geosite-geolocation-!cn\",",
-        "        \"outbound\": \"proxy\"",
-        "      }",
-        "    ],",
-        "    \"final\": \"proxy\",",
-        "    \"auto_detect_interface\": true",
-        "  },",
-        "  \"experimental\": {",
-        "    \"cache_file\": {",
-        "      \"enabled\": true,",
-        "      \"path\": \"sing-box-cache.db\",",
-        "      \"store_rdrc\": true",
-        "    },",
-        "    \"clash_api\": {",
-        "      \"external_controller\": \"127.0.0.1:9090\",",
-        "      \"external_ui\": \"ui\",",
-        "      \"external_ui_download_url\": \"https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip\",",
-        "      \"external_ui_download_detour\": \"direct\"",
-        "    }",
-        "  }",
-        "}"
-    ];
 
-    // ----- 逐行对应注释（修复双引号语法错误，全角替换避免JS字符串闭合问题） -----
-    const comments = [
-        "sing-box 1.11.4 配置根对象，JSON格式起始括号，所有配置必须包裹在此对象内",
-        "日志配置模块，控制sing-box的日志输出行为，是排查问题的核心模块",
-        "【核心配置】日志级别设置为info | 说明：可选值panic/fatal/error/warn/info/debug/trace，info仅输出关键运行信息，无冗余日志，适合日常使用 | 疑惑解答：排查问题时建议改成debug/trace，日常使用info足够，避免占用磁盘空间",
-        "开启日志时间戳 | 说明：开启后每条日志都会带上精确时间，方便回溯问题和定位故障 | 注意：不建议关闭，无时间戳的日志无排查价值",
-        "日志配置对象结束",
-        "DNS配置模块，sing-box的核心分流模块，决定域名解析策略，直接影响防污染效果和访问速度",
-        "DNS服务器列表，定义所有可用的DNS解析服务，支持UDP/TCP/DoH/DoQ等多种类型",
-        "第一个DNS服务器：bootstrap引导解析器，解决DoH域名自身的解析死循环问题",
-        "DNS服务器标签，用于其他配置引用该服务器，必须全局唯一",
-        "DNS服务器地址，这里用阿里云公共DNS的IP，无需解析即可直连 | 版本差异：1.11.4用address字段统一配置地址，高版本拆分为type+server字段，不兼容",
-        "该DNS服务器的流量走direct直连出站，确保无代理时也能正常解析",
-        "bootstrap DNS服务器配置结束",
-        "第二个DNS服务器：国内直连DoH服务器，用于国内域名解析",
-        "服务器标签，用于规则引用",
-        "阿里公共DNS的DoH地址，国内访问稳定、延迟低，防运营商DNS劫持",
-        "该DoH域名的解析器，指定用上面的bootstrap DNS解析，解决「鸡生蛋蛋生鸡」的问题 | 疑惑解答：为什么要加这个？因为dns.alidns.com本身需要先解析IP才能建立DoH连接，必须用一个纯IP的DNS做引导",
-        "该DNS的流量走direct直连，国内域名直连解析，速度更快",
-        "国内直连DNS服务器配置结束",
-        "第三个DNS服务器：海外代理DoH服务器，用于海外域名解析，防DNS污染",
-        "服务器标签，用于规则引用",
-        "Cloudflare的DoH地址，海外通用、隐私性好，适合代理场景使用",
-        "该DoH域名的解析器，同样用bootstrap DNS解析，确保首次启动就能正常连接",
-        "该DNS的流量走proxy代理出站，海外域名通过代理解析，彻底避免DNS污染",
-        "海外代理DNS服务器配置结束",
-        "第四个DNS服务器：广告拦截DNS，用于拦截广告域名",
-        "服务器标签，用于规则引用",
-        "rcode://success 是sing-box内置的虚拟DNS，会返回成功但无IP的响应，实现广告域名拦截 | 疑惑解答：为什么不用reject？用rcode://success可以避免客户端反复重试，减少无效流量",
-        "广告拦截DNS服务器配置结束",
-        "DNS服务器列表结束",
-        "DNS规则列表，定义不同域名/场景使用哪个DNS服务器，是DNS分流的核心",
-        "第一条DNS规则：广告域名拦截",
-        "匹配广告规则集geosite-category-ads-all里的所有域名",
-        "匹配到的域名用dns-block服务器拦截",
-        "禁用该规则的DNS缓存，确保广告拦截规则更新后立即生效",
-        "广告拦截DNS规则结束",
-        "第二条DNS规则：GitHub raw域名强制直连解析",
-        "匹配域名后缀为raw.githubusercontent.com的所有地址",
-        "匹配到的域名用国内直连DNS解析，确保GitHub资源能正常访问",
-        "GitHub域名DNS规则结束",
-        "第三条DNS规则：.cn国内域名直连解析",
-        "匹配所有后缀为.cn的国内域名",
-        "匹配到的域名用国内直连DNS解析，国内访问速度最快",
-        ".cn域名DNS规则结束",
-        "第四条DNS规则：国内域名规则集直连解析",
-        "匹配geosite-cn规则集里的所有国内域名",
-        "匹配到的域名用国内直连DNS解析",
-        "国内域名规则集DNS规则结束",
-        "第五条DNS规则：非中国海外域名代理解析",
-        "匹配geosite-geolocation-!cn规则集里的所有海外域名",
-        "匹配到的域名用海外代理DNS解析，防污染",
-        "海外域名DNS规则结束",
-        "DNS规则列表结束",
-        "【兜底配置】所有未匹配到规则的域名，默认用海外代理DNS解析 | 说明：实现「国内直连、海外默认代理」的核心配置",
-        "开启独立DNS缓存 | 说明：每个DNS服务器使用独立的缓存空间，避免国内/海外DNS缓存互相污染，大幅提升解析稳定性 | 版本差异：该字段是1.11.4版本的稳定特性，部分低版本不支持",
-        "DNS配置模块结束",
-        "NTP时间同步模块，用于同步系统时间，TLS/节点连接对时间精度要求极高，时间误差过大会导致节点连接失败",
-        "开启NTP时间同步 | 注意：强烈建议开启，尤其是路由器/旁路由等无系统时间同步的设备",
-        "时间同步间隔30分钟，平衡时间精度和资源占用",
-        "阿里云NTP服务器，国内访问稳定、延迟低",
-        "NTP服务默认端口123，无需修改",
-        "NTP时间同步模块结束",
-        "入站配置模块，定义sing-box接收流量的入口，支持TUN、混合代理、Socks、HTTP等多种入站类型",
-        "第一个入站：mixed混合代理入站，同时支持HTTP和Socks5协议，兼容绝大多数客户端和软件",
-        "入站类型为mixed混合代理",
-        "入站标签，用于其他配置引用",
-        "监听地址为127.0.0.1，仅本机可访问 | 注意：如果需要给局域网其他设备使用，需改成0.0.0.0",
-        "监听端口7890，是代理软件的通用默认端口，可自行修改",
-        "关闭自动设置系统代理 | 说明：开启后会自动把系统代理设置为该mixed入站，按需开启即可",
-        "mixed混合代理入站配置结束",
-        "第二个入站：TUN虚拟网卡入站，实现全局代理，接管系统所有流量，是透明代理的核心",
-        "入站类型为tun虚拟网卡",
-        "入站标签，用于其他配置引用",
-        "MTU设置为1500，是以太网的标准MTU值，平衡传输效率和分片风险 | 疑惑解答：MTU不是越大越好，过大容易导致IP分片，反而降低传输稳定性",
-        "TUN网卡的IP地址，包含IPv4和IPv6两个地址段，必须是未被局域网占用的私有网段 | 说明：/30和/126子网仅包含2个可用IP，足够TUN网卡使用，避免地址浪费",
-        "开启自动路由，自动配置系统路由表，把流量导入TUN网卡 | 注意：必须开启，否则TUN网卡无法接管流量",
-        "开启严格路由，防止流量泄露，提升安全性 | 说明：开启后会严格过滤非TUN入口的流量，避免代理绕过",
-        "TUN协议栈设置为gvisor | 版本差异&疑惑解答：1.11.4版本gvisor栈兼容性最好，性能均衡；高版本推荐mixed栈，但mixed栈在1.11.4版本有兼容性问题，不推荐使用",
-        "开启端点独立NAT，支持P2P、打洞、UDP转发等场景，提升BT/PT/游戏等应用的兼容性 | 说明：普通网页浏览无影响，有P2P需求必须开启",
-        "TUN虚拟网卡入站配置结束",
-        "入站配置列表结束",
-        "出站配置模块，定义sing-box流量的出口，是节点管理、分流、自动选点的核心模块",
-        "第一个出站：direct直连出站，流量直接访问目标地址，不经过代理",
-        "出站类型为direct直连",
-        "出站标签为direct，全小写，其他配置必须和该标签完全一致才能引用 | 注意：sing-box标签大小写敏感，Direct和direct是两个不同的标签，必须严格对应",
-        "direct直连出站配置结束",
-        "第二个出站：selector选择器出站，用于手动切换节点/线路，支持Clash面板可视化切换",
-        "出站类型为selector选择器",
-        "出站标签为proxy，是分流规则的默认代理出口",
-        "选择器包含的子出站列表，可在面板中手动切换这些出站",
-        "auto自动测速选点出站",
-        "第一个自定义VLESS节点",
-        "第二个自定义VLESS节点",
-        "子出站列表结束",
-        "选择器默认选中auto自动测速出站",
-        "selector选择器出站配置结束",
-        "第三个出站：urltest自动测速选点出站，自动选择延迟最低的节点，无需手动切换",
-        "出站类型为urltest自动测速",
-        "出站标签为auto，被上面的selector引用",
-        "自动测速的节点列表，会对这些节点进行延迟测试",
-        "第一个自定义VLESS节点",
-        "第二个自定义VLESS节点",
-        "测速节点列表结束",
-        "测速地址，用谷歌的204地址，全球通用、稳定性高 | 说明：urltest通过访问该地址的耗时来计算节点延迟",
-        "测速间隔3分钟，频繁测速会增加节点负载，3分钟是平衡实时性和负载的最佳值 | 疑惑解答：为什么不用10m？3分钟可以更快切换到延迟更低的节点，适合节点网络波动大的场景",
-        "测速容忍值50ms | 说明：只有当新节点延迟比当前节点低50ms以上时，才会切换节点，避免频繁切换导致的连接中断",
-        "urltest自动测速出站配置结束",
-        "第四个出站：自定义VLESS节点1，模板占位，必须替换为自己的真实节点信息",
-        "出站类型为vless，是当前主流的轻量级代理协议，性能好、防识别能力强",
-        "节点标签，会显示在Clash面板中，可自行修改",
-        "节点服务器地址，必须替换为你的节点IP/域名 | 注意：这里不能加http/https前缀，只能填域名或IP",
-        "节点端口，必须替换为你的节点真实端口，HTTPS/WSS节点通常是443端口",
-        "节点UUID，必须替换为你的节点真实UUID，是VLESS协议的身份验证核心",
-        "关闭TCP快速打开 | 说明：TCP Fast Open可以减少TCP握手耗时，但部分网络/节点不支持，关闭后兼容性更好，日常使用无感知",
-        "TLS安全传输配置，用于加密流量，防止被运营商识别和拦截",
-        "开启TLS加密，WSS/HTTPS节点必须开启，否则无法连接",
-        "TLS的SNI字段，必须替换为你的节点域名，用于TLS握手时的服务器证书验证，是防污染的核心",
-        "关闭不安全的证书跳过验证 | 注意：绝对不建议开启insecure=true，开启后会跳过证书校验，存在中间人攻击风险，安全性完全丧失",
-        "TLS配置结束",
-        "传输层配置，定义代理流量的传输方式，这里用WebSocket(WS)协议",
-        "传输类型为ws(WebSocket)，是当前最主流的CDN兼容传输协议，支持绝大多数CDN转发",
-        "WS协议的路径，必须替换为你的节点真实路径，通常以/开头",
-        "WS请求头配置",
-        "Host请求头，必须替换为你的节点域名，和SNI保持一致，是CDN转发的必填字段",
-        "WS请求头配置结束",
-        "传输层配置结束",
-        "指定传输网络为tcp，VLESS over WS over TCP是标准配置，无需修改",
-        "VLESS节点1配置结束",
-        "第五个出站：自定义VLESS节点2，模板占位，必须替换为自己的真实节点信息",
-        "出站类型为vless",
-        "节点标签，可自行修改",
-        "节点服务器地址，必须替换为真实IP/域名",
-        "节点端口，必须替换为真实端口",
-        "节点UUID，必须替换为真实UUID",
-        "关闭TCP快速打开，保证兼容性",
-        "TLS安全传输配置",
-        "开启TLS加密",
-        "SNI字段，替换为节点真实域名",
-        "关闭不安全的证书跳过验证",
-        "TLS配置结束",
-        "传输层配置",
-        "传输类型为ws(WebSocket)",
-        "WS路径，替换为节点真实路径",
-        "WS请求头配置",
-        "Host请求头，替换为节点真实域名",
-        "WS请求头配置结束",
-        "传输层配置结束",
-        "指定传输网络为tcp",
-        "VLESS节点2配置结束",
-        "出站配置列表结束",
-        "路由配置模块，sing-box的核心分流模块，定义流量的走向（直连/代理/拦截），是实现国内外分流的核心",
-        "规则集远程定义列表，提前定义所有需要用到的远程规则集，分流规则中可直接引用标签",
-        "第一个规则集：geoip-cn 中国IP段规则集",
-        "规则集类型为remote远程规则集，会自动从指定URL下载",
-        "规则集标签，用于分流规则引用",
-        "规则集格式为binary二进制格式，是sing-box专用的srs格式，加载速度远快于文本格式",
-        "规则集下载地址，官方维护的geoip-cn规则集，更新及时",
-        "【核心修复】规则集下载走direct直连出站 | 说明：解决了首次启动无代理时，无法下载规则集的死循环问题，是该修复版的核心优化点",
-        "规则集自动更新间隔24小时，保证IP段数据的时效性",
-        "geoip-cn规则集配置结束",
-        "第二个规则集：geosite-cn 中国域名规则集",
-        "规则集类型为remote远程",
-        "规则集标签",
-        "格式为binary二进制",
-        "官方维护的geosite-cn规则集下载地址",
-        "下载走direct直连，首次启动无代理也能下载",
-        "自动更新间隔24小时",
-        "geosite-cn规则集配置结束",
-        "第三个规则集：geosite-geolocation-!cn 非中国海外域名规则集",
-        "规则集类型为remote远程",
-        "规则集标签",
-        "格式为binary二进制",
-        "官方维护的海外域名规则集下载地址",
-        "下载走direct直连，首次启动无代理也能下载",
-        "自动更新间隔24小时",
-        "海外域名规则集配置结束",
-        "第四个规则集：geosite-category-ads-all 全量广告域名规则集",
-        "规则集类型为remote远程",
-        "规则集标签",
-        "格式为binary二进制",
-        "官方维护的广告域名规则集下载地址",
-        "下载走direct直连，首次启动无代理也能下载",
-        "自动更新间隔24小时",
-        "广告域名规则集配置结束",
-        "规则集定义列表结束",
-        "路由规则列表，按从上到下的顺序匹配，匹配到第一条规则后就不再继续匹配，规则顺序非常重要",
-        "第一条路由规则：全局流量嗅探 | 说明：必须放在所有规则最前面，才能嗅探所有流量的域名/协议信息，是分流的基础",
-        "执行sniff嗅探动作，识别流量中的域名、协议类型",
-        "全局嗅探规则结束",
-        "第二条路由规则：DNS流量劫持",
-        "匹配协议为dns的所有流量",
-        "执行hijack-dns劫持动作，把所有DNS流量导入sing-box的DNS模块处理，确保分流规则生效 | 说明：是防DNS污染、实现DNS分流的核心规则，必须开启",
-        "DNS劫持规则结束",
-        "第三条路由规则：内网私有IP直连",
-        "匹配目标IP为私有内网IP的流量，比如192.168.x.x、10.x.x.x等",
-        "匹配到的流量走direct直连出站，确保能正常访问路由器、NAS、打印机等局域网设备",
-        "内网IP直连规则结束",
-        "第四条路由规则：GitHub raw域名直连",
-        "匹配域名后缀为raw.githubusercontent.com的流量",
-        "匹配到的流量走direct直连出站，确保GitHub资源能正常访问、下载",
-        "GitHub域名直连规则结束",
-        "第五条路由规则：广告流量拦截",
-        "匹配广告规则集里的所有广告域名",
-        "执行reject拒绝动作，直接拦截广告流量，实现去广告功能",
-        "广告拦截规则结束",
-        "第六条路由规则：国内域名/IP直连",
-        "匹配中国域名规则集geosite-cn和中国IP规则集geoip-cn的流量",
-        "匹配到的国内流量走direct直连出站，国内网站访问速度更快、延迟更低",
-        "国内流量直连规则结束",
-        "第七条路由规则：.cn域名直连",
-        "匹配所有后缀为.cn的国内域名流量",
-        "匹配到的流量走direct直连出站，作为国内规则集的兜底补充",
-        ".cn域名直连规则结束",
-        "第八条路由规则：海外域名代理",
-        "匹配非中国海外域名规则集的所有流量",
-        "匹配到的海外流量走proxy代理出站，实现海外网站代理访问",
-        "海外流量代理规则结束",
-        "路由规则列表结束",
-        "【兜底配置】所有未匹配到规则的流量，默认走proxy代理出站 | 说明：实现「国内直连、海外默认代理」的核心兜底配置",
-        "开启自动检测网络接口，自动选择最优的出口网卡，避免多网卡设备出现路由异常 | 说明：路由器、多网口设备必须开启，单网卡Windows/Mac设备开启无影响",
-        "路由配置模块结束",
-        "实验性功能模块，包含Clash API、缓存文件等非核心但非常实用的功能",
-        "缓存文件配置，把sing-box的缓存数据持久化到硬盘，重启后无需重新加载规则集、重建缓存，大幅提升启动速度",
-        "开启缓存文件功能 | 强烈建议开启，尤其是路由器等低性能设备，启动速度提升非常明显",
-        "缓存文件的保存路径，可自行修改，默认保存在sing-box工作目录",
-        "开启拒绝请求缓存存储 | 说明：存储被拒绝的DNS/请求记录，避免重复处理，提升性能，减少无效流量",
-        "缓存文件配置结束",
-        "Clash API配置，用于对接Clash可视化面板（如metacubexd、yacd），实现节点切换、流量监控、规则查看等功能",
-        "Clash API监听地址和端口，127.0.0.1:9090仅本机可访问，如需局域网访问可改成0.0.0.0:9090",
-        "Clash UI面板的存放目录，自动下载的面板文件会解压到该目录",
-        "Clash UI面板的下载地址，这里用metacubexd面板，功能全面、兼容性好",
-        "【核心修复】UI面板下载走direct直连出站 | 说明：解决了首次启动无代理时，无法下载UI面板的问题",
-        "Clash API配置结束",
-        "实验性功能模块结束",
-        "sing-box配置根对象结束，JSON格式闭合括号，必须和开头的{对应，否则配置会报语法错误"
-    ];
+    <script>
+        (function() {
+            const configLines = [
+                "{",
+                "  \"log\": {",
+                "    \"level\": \"info\",",
+                "    \"timestamp\": true",
+                "  },",
+                "  \"dns\": {",
+                "    \"servers\": [",
+                "      {",
+                "        \"tag\": \"dns-resolver\",",
+                "        \"address\": \"223.5.5.5\",",
+                "        \"detour\": \"direct\"",
+                "      },",
+                "      {",
+                "        \"tag\": \"dns-direct\",",
+                "        \"address\": \"https://dns.alidns.com/dns-query\",",
+                "        \"address_resolver\": \"dns-resolver\",",
+                "        \"detour\": \"direct\"",
+                "      },",
+                "      {",
+                "        \"tag\": \"dns-proxy\",",
+                "        \"address\": \"https://1.1.1.1/dns-query\",",
+                "        \"address_resolver\": \"dns-resolver\",",
+                "        \"detour\": \"proxy\"",
+                "      },",
+                "      {",
+                "        \"tag\": \"dns-block\",",
+                "        \"address\": \"rcode://success\"",
+                "      }",
+                "    ],",
+                "    \"rules\": [",
+                "      {",
+                "        \"rule_set\": [\"geosite-category-ads-all\"],",
+                "        \"server\": \"dns-block\",",
+                "        \"disable_cache\": true",
+                "      },",
+                "      {",
+                "        \"domain_suffix\": [",
+                "          \"raw.githubusercontent.com\",",
+                "          \"geosite-cn\"",
+                "        ],",
+                "        \"server\": \"dns-direct\"",
+                "      },",
+                "      {",
+                "        \"rule_set\": [\"geosite-cn\"],",
+                "        \"server\": \"dns-direct\"",
+                "      },",
+                "      {",
+                "        \"rule_set\": [\"geosite-geolocation-!cn\"],",
+                "        \"server\": \"dns-proxy\"",
+                "      }",
+                "    ],",
+                "    \"final\": \"dns-proxy\",",
+                "    \"independent_cache\": true",
+                "  },",
+                "  \"ntp\": {",
+                "    \"enabled\": true,",
+                "    \"interval\": \"30m\",",
+                "    \"server\": \"ntp.aliyun.com\",",
+                "    \"server_port\": 123",
+                "  },",
+                "  \"inbounds\": [",
+                "    {",
+                "      \"type\": \"mixed\",",
+                "      \"tag\": \"mixed-in\",",
+                "      \"listen\": \"127.0.0.1\",",
+                "      \"listen_port\": 7890,",
+                "      \"set_system_proxy\": false",
+                "    },",
+                "    {",
+                "      \"type\": \"tun\",",
+                "      \"tag\": \"tun-in\",",
+                "      \"mtu\": 1500,",
+                "      \"address\": [\"172.19.0.1/30\", \"fdfe:dcba:9876::1/126\"],",
+                "      \"auto_route\": true,",
+                "      \"strict_route\": true,",
+                "      \"stack\": \"gvisor\",",
+                "      \"endpoint_independent_nat\": true",
+                "    }",
+                "  ],",
+                "  \"outbounds\": [",
+                "    {",
+                "      \"type\": \"direct\",",
+                "      \"tag\": \"direct\"",
+                "    },",
+                "    {",
+                "      \"type\": \"selector\",",
+                "      \"tag\": \"proxy\",",
+                "      \"outbounds\": [",
+                "        \"auto\",",
+                "        \"🚀 CF-优选-Visa\",",
+                "        \"🚀 CF-优选-DO\"",
+                "      ],",
+                "      \"default\": \"auto\"",
+                "    },",
+                "    {",
+                "      \"type\": \"urltest\",",
+                "      \"tag\": \"auto\",",
+                "      \"outbounds\": [",
+                "        \"🚀 CF-优选-Visa\",",
+                "        \"🚀 CF-优选-DO\"",
+                "      ],",
+                "      \"url\": \"https://www.gstatic.com/generate_204\",",
+                "      \"interval\": \"3m\",",
+                "      \"tolerance\": 50",
+                "    },",
+                "    {",
+                "      \"type\": \"vless\",",
+                "      \"tag\": \"🚀 CF-优选-Visa\",",
+                "      \"server\": \"CF优选域名\",",
+                "      \"server_port\": 443,",
+                "      \"uuid\": \"uuid\",",
+                "      \"tcp_fast_open\": false,",
+                "      \"tls\": {",
+                "        \"enabled\": true,",
+                "        \"server_name\": \"节点域名\",",
+                "        \"insecure\": false",
+                "      },",
+                "      \"transport\": {",
+                "        \"type\": \"ws\",",
+                "        \"path\": \"/路径\",",
+                "        \"headers\": {",
+                "          \"host\": \"节点域名\"",
+                "        }",
+                "      },",
+                "      \"network\": \"tcp\"",
+                "    },",
+                "    {",
+                "      \"type\": \"vless\",",
+                "      \"tag\": \"🚀 CF-优选-DO\",",
+                "      \"server\": \"CF优选域名\",",
+                "      \"server_port\": 443,",
+                "      \"uuid\": \"uuid\",",
+                "      \"tcp_fast_open\": false,",
+                "      \"tls\": {",
+                "        \"enabled\": true,",
+                "        \"server_name\": \"节点域名\",",
+                "        \"insecure\": false",
+                "      },",
+                "      \"transport\": {",
+                "        \"type\": \"ws\",",
+                "        \"path\": \"/路径\",",
+                "        \"headers\": {",
+                "          \"host\": \"节点域名\"",
+                "        }",
+                "      },",
+                "      \"network\": \"tcp\"",
+                "    }",
+                "  ],",
+                "  \"route\": {",
+                "    \"rule_set\": [",
+                "      {",
+                "        \"type\": \"remote\",",
+                "        \"tag\": \"geoip-cn\",",
+                "        \"format\": \"binary\",",
+                "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs\",",
+                "        \"download_detour\": \"direct\",",
+                "        \"update_interval\": \"24h\"",
+                "      },",
+                "      {",
+                "        \"type\": \"remote\",",
+                "        \"tag\": \"geosite-cn\",",
+                "        \"format\": \"binary\",",
+                "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs\",",
+                "        \"download_detour\": \"direct\",",
+                "        \"update_interval\": \"24h\"",
+                "      },",
+                "      {",
+                "        \"type\": \"remote\",",
+                "        \"tag\": \"geosite-geolocation-!cn\",",
+                "        \"format\": \"binary\",",
+                "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs\",",
+                "        \"download_detour\": \"direct\",",
+                "        \"update_interval\": \"24h\"",
+                "      },",
+                "      {",
+                "        \"type\": \"remote\",",
+                "        \"tag\": \"geosite-category-ads-all\",",
+                "        \"format\": \"binary\",",
+                "        \"url\": \"https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs\",",
+                "        \"download_detour\": \"direct\",",
+                "        \"update_interval\": \"24h\"",
+                "      }",
+                "    ],",
+                "    \"rules\": [",
+                "      {",
+                "        \"action\": \"sniff\"",
+                "      },",
+                "      {",
+                "        \"protocol\": \"dns\",",
+                "        \"action\": \"hijack-dns\"",
+                "      },",
+                "      {",
+                "        \"ip_is_private\": true,",
+                "        \"outbound\": \"direct\"",
+                "      },",
+                "      {",
+                "        \"domain_suffix\": [\"raw.githubusercontent.com\"],",
+                "        \"outbound\": \"direct\"",
+                "      },",
+                "      {",
+                "        \"rule_set\": [\"geosite-category-ads-all\"],",
+                "        \"action\": \"reject\"",
+                "      },",
+                "      {",
+                "        \"rule_set\": [\"geosite-cn\", \"geoip-cn\"],",
+                "        \"outbound\": \"direct\"",
+                "      },",
+                "      {",
+                "        \"domain_suffix\": [\".cn\"],",
+                "        \"outbound\": \"direct\"",
+                "      },",
+                "      {",
+                "        \"rule_set\": [\"geosite-geolocation-!cn\"],",
+                "        \"outbound\": \"proxy\"",
+                "      }",
+                "    ],",
+                "    \"final\": \"proxy\",",
+                "    \"auto_detect_interface\": true",
+                "  },",
+                "  \"experimental\": {",
+                "    \"cache_file\": {",
+                "      \"enabled\": true,",
+                "      \"path\": \"sing-box-cache.db\",",
+                "      \"store_rdrc\": true",
+                "    },",
+                "    \"clash_api\": {",
+                "      \"external_controller\": \"127.0.0.1:9090\",",
+                "      \"external_ui\": \"ui\",",
+                "      \"external_ui_download_url\": \"https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip\",",
+                "      \"external_ui_download_detour\": \"direct\"",
+                "    }",
+                "  }",
+                "}"
+            ];
 
-    // HTML转义函数
-    function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;')
-                   .replace(/</g, '&lt;')
-                   .replace(/>/g, '&gt;')
-                   .replace(/"/g, '&quot;');
-    }
+            // 所有英文双引号已替换为中文双引号，彻底修复脚本错误
+            const comments = [
+                "sing-box 配置根对象——整个配置文件的入口，所有功能模块都包裹在这个大括号内。适配 1.11.4 经典稳定版。",
+                "<span class='tag tag-info'>🔍 解惑</span> 日志系统配置块，控制日志输出行为与级别。<code>info</code> 级别比 trace 更简洁，适合日常使用——只记录关键信息如连接建立、规则匹配结果等。",
+                "日志输出级别：<code>info</code>。可选值：panic / fatal / error / warn / info / debug / trace。info 是生产环境推荐级别，平衡信息量和性能。",
+                "开启日志时间戳，每条日志带上精确时间，便于问题回溯和故障定位。",
+                "日志配置块结束。",
+                "<span class='tag tag-notice'>📌 注意</span> DNS 核心配置块——这是整个代理系统最关键的模块之一。本版本使用四层DNS架构：基础解析器 → 国内DoH → 海外DoH → 广告拦截。",
+                "DNS 服务器列表，定义4个不同用途的 DNS 解析源。按规则匹配后，不同域名走不同的 DNS 服务器。",
+                "基础 DNS 解析器配置——用于解析其他 DoH 服务器的域名本身。<span class='tag tag-info'>🔍 解惑</span> 这是DNS链的根基：DoH地址是域名（如dns.alidns.com），需要先用普通DNS解析出IP才能访问。",
+                "标签标识 <code>dns-resolver</code>——DNS解析链的起点，后续DoH服务器通过 <code>address_resolver</code> 引用它。",
+                "DNS 服务器地址：<code>223.5.5.5</code>，阿里云公共 DNS，国内低延迟高稳定。使用纯IP地址避免循环依赖。",
+                "该DNS请求走 <code>direct</code> 直连出站——国内IP直连即可。",
+                "基础解析器配置块结束。",
+                "国内 DoH 加密 DNS 服务器配置——国内域名主力解析服务。<span class='tag tag-tip'>💡 提示</span> 使用阿里云DoH（dns.alidns.com），国内解析又快又准。",
+                "标签标识 <code>dns-direct</code>——国内域名核心解析服务。",
+                "DoH 服务地址：<code>https://dns.alidns.com/dns-query</code>，阿里云官方 DoH 端点。",
+                "<span class='tag tag-notice'>📌 注意</span> <code>address_resolver: dns-resolver</code>——解析 dns.alidns.com 域名本身时使用基础解析器，形成清晰的DNS解析链。",
+                "该DNS请求走 <code>direct</code> 直连出站——阿里DoH在国内可直接访问。",
+                "国内DoH配置块结束。",
+                "海外 DoH 加密 DNS 服务器配置——境外域名防污染解析的核心。<span class='tag tag-info'>🔍 解惑</span> Cloudflare DoH（1.1.1.1）全球节点多、延迟低，通过代理访问可彻底防止DNS污染。",
+                "标签标识 <code>dns-proxy</code>——境外域名加密解析服务。",
+                "DoH 服务地址：<code>https://1.1.1.1/dns-query</code>，Cloudflare 官方 DoH 端点。",
+                "解析 1.1.1.1 域名本身时使用基础解析器——同样避免循环依赖。",
+                "<span class='tag tag-warn'>⚠️ 警告</span> <code>detour: proxy</code>——该DNS请求通过 proxy 代理出站。Cloudflare DoH 在国内可能被干扰，走代理保证解析畅通。",
+                "海外DoH配置块结束。",
+                "广告拦截 DNS 服务器配置——对广告域名返回空响应。<span class='tag tag-info'>🔍 解惑</span> <code>rcode://success</code> 是一个特殊地址，模拟DNS服务器返回成功但无IP记录，广告请求在DNS阶段就被“吞掉”。",
+                "标签标识 <code>dns-block</code>——广告拦截专用。",
+                "特殊地址 <code>rcode://success</code>——返回SERVFAIL之外的“成功”响应码，但answer段为空，达到静默拦截效果。",
+                "广告拦截DNS配置块结束。",
+                "DNS 服务器列表结束。",
+                "<span class='tag tag-notice'>📌 注意</span> DNS 分流规则列表——按从上到下优先级匹配，命中规则即停止后续匹配。规则顺序至关重要！",
+                "广告域名拦截规则——匹配广告规则集的域名使用 dns-block 返回空响应。<span class='tag tag-tip'>💡 提示</span> 这是DNS层广告拦截，比浏览器插件更底层、更彻底。",
+                "匹配的广告规则集：<code>geosite-category-ads-all</code>——sing-geosite 官方全量广告分类。",
+                "匹配后使用 <code>dns-block</code> 返回空响应——广告域名连解析都不会真正执行。",
+                "<code>disable_cache: true</code>——广告域名的解析结果不缓存。<span class='tag tag-info'>🔍 解惑</span> 广告域名变化频繁且不需要缓存，禁用缓存可节省内存。",
+                "广告拦截DNS规则结束。",
+                "特定域名 + 规则集直连解析规则。<span class='tag tag-warn'>⚠️ 警告</span> 原始配置中 <code>\"geosite-cn\"</code> 出现在 domain_suffix 数组中——这不是合法的域名后缀，可能是配置笔误。建议确认是否为规则集引用。本表格保留原始内容。",
+                "匹配的域名后缀列表。",
+                "GitHub Raw 内容域名——直连解析保证raw内容可访问。",
+                "<span class='tag tag-warn'>⚠️ 警告</span> <code>\"geosite-cn\"</code> 不是域名后缀——原始配置如此，可能是历史遗留或特殊用法，请根据实际需求调整。",
+                "域名后缀列表结束。",
+                "匹配该规则的域名，使用 <code>dns-direct</code>（阿里DoH）解析——国内直连、低延迟。",
+                "该规则结束。",
+                "国内域名规则集解析规则——匹配 geosite-cn 规则集的域名使用阿里DoH直连解析。",
+                "匹配的规则集：<code>geosite-cn</code>——sing-geosite 中国域名分类。",
+                "匹配后使用 <code>dns-direct</code> 解析——国内域名走国内DNS。",
+                "国内域名DNS规则结束。",
+                "境外域名规则集解析规则——匹配 geosite-geolocation-!cn（非中国地区域名）的域名使用Cloudflare DoH代理解析。<span class='tag tag-info'>🔍 解惑</span> <code>geosite-geolocation-!cn</code> 是 sing-geosite 中“非中国地理定位”分类，覆盖绝大部分境外站点。",
+                "匹配的规则集：<code>geosite-geolocation-!cn</code>——境外站点全量分类。",
+                "匹配后使用 <code>dns-proxy</code> 解析——走代理通道、防污染。",
+                "境外域名DNS规则结束。",
+                "DNS 分流规则列表结束。",
+                "<span class='tag tag-warn'>⚠️ 警告</span> DNS 最终兜底服务器：<code>dns-proxy</code>——所有未匹配规则的域名默认走Cloudflare DoH代理解析。这是“白名单”策略：已知国内走直连，其余全部走代理。",
+                "<span class='tag tag-info'>🔍 解惑</span> <code>independent_cache: true</code>——独立缓存模式。与 v1.13.11 的 cache_capacity 不同，independent_cache 为每个DNS服务器维护独立缓存，避免不同服务器间的缓存冲突，更稳定可靠。",
+                "DNS 核心配置块结束。",
+                "<span class='tag tag-tip'>💡 提示</span> NTP 网络时间同步配置块。系统时间偏差过大会导致 TLS 证书验证失败，NTP同步是代理稳定运行的基石。注意：本版本NTP在DNS之后配置。",
+                "启用 NTP 时间同步核心功能。",
+                "时间同步间隔：每 <code>30m</code>（30分钟）执行一次系统时间同步。",
+                "NTP 服务器地址：<code>ntp.aliyun.com</code>，阿里云公共NTP服务，国内低延迟。",
+                "NTP 服务端口：标准 UDP <strong>123</strong> 端口。",
+                "NTP 配置块结束。",
+                "入站连接配置块——定义流量进入 sing-box 的入口方式。本版本：mixed代理在前、TUN虚拟网卡在后。",
+                "混合代理入站配置——单端口同时兼容 HTTP 和 SOCKS5 代理协议。<span class='tag tag-tip'>💡 提示</span> 主要用于浏览器插件（SwitchyOmega等）或应用内代理设置。",
+                "入站类型为 <code>mixed</code>，单端口同时支持 HTTP 和 SOCKS5 协议。",
+                "mixed 入站的标签标识 <code>mixed-in</code>。",
+                "代理监听地址：<code>127.0.0.1</code>——仅绑定本地环回地址，安全第一。",
+                "代理监听端口：标准 <strong>7890</strong> 端口。",
+                "<code>set_system_proxy: false</code>——不自动修改系统代理设置。<span class='tag tag-info'>🔍 解惑</span> 设为false意味着需要手动配置系统代理或使用浏览器插件，适合高级用户精细控制。",
+                "mixed 入站配置块结束。",
+                "TUN 虚拟网卡入站配置——全平台全局代理的核心入口。",
+                "入站类型为 <code>tun</code>，创建虚拟网卡接管系统全量流量。",
+                "tun 入站的标签标识 <code>tun-in</code>。",
+                "虚拟网卡 MTU 值：以太网标准 <strong>1500</strong> 字节。",
+                "虚拟网卡IP地址配置——同时配置IPv4和IPv6地址。<code>172.19.0.1/30</code>（IPv4私网段）+ <code>fdfe:dcba:9876::1/126</code>（IPv6 ULA地址）。<span class='tag tag-tip'>💡 提示</span> 使用/30和/126小网段减少地址浪费。",
+                "开启自动路由——自动配置系统路由表。",
+                "开启严格路由——防止流量泄露。",
+                "TCP/IP 协议栈类型：<code>gvisor</code>——使用Google gvisor用户态网络栈。<span class='tag tag-info'>🔍 解惑</span> gvisor在兼容性和隔离性方面表现优秀，适合多平台场景。与1.13.11的mixed模式不同。",
+                "<code>endpoint_independent_nat: true</code>——启用端点独立NAT。<span class='tag tag-info'>🔍 解惑</span> 端点独立NAT（EIM）是NAT中最宽松的类型，允许任何外部主机通过已建立的映射访问内部端点，对P2P应用友好。",
+                "TUN 入站配置块结束。",
+                "入站连接配置块结束。",
+                "<span class='tag tag-notice'>📌 注意</span> 出站连接配置块——定义流量流出 sing-box 的出口。本版本标签使用小写（direct/proxy/auto），与1.13.11的大写风格不同。",
+                "直连出站配置——流量直接访问目标地址。",
+                "出站类型为 <code>direct</code>。",
+                "直连出站的标签标识 <code>direct</code>——路由规则中大量引用的核心标签（注意小写）。",
+                "直连出站配置块结束。",
+                "手动选择器出站配置——用于在控制面板中手动切换节点。<span class='tag tag-tip'>💡 提示</span> 这是Clash面板中看到的 proxy 选项组（小写标签）。",
+                "出站类型为 <code>selector</code>。",
+                "该选择器的标签标识 <code>proxy</code>——核心代理分流标签（注意小写）。",
+                "可手动选择的出站列表。",
+                "auto 自动测速选路组（默认选中）。",
+                "🚀 CF-优选-Visa 节点。",
+                "🚀 CF-优选-DO 节点。",
+                "可选出站列表结束。",
+                "默认选择的出站：<code>auto</code>——自动测速选路。本版本selector不包含direct选项，如需直连需在路由规则层面切换。",
+                "proxy 选择器配置块结束。",
+                "自动测速选路出站配置——<code>urltest</code> 类型，自动选择延迟最低的节点。<span class='tag tag-info'>🔍 解惑</span> 与1.13.11版本不同，本版本urltest没有 idle_timeout 和 interrupt_exist_connections 字段。",
+                "出站类型为 <code>urltest</code>。",
+                "该自动选路组的标签标识 <code>auto</code>（小写）。",
+                "参与自动测速的节点列表。",
+                "🚀 CF-优选-Visa。",
+                "🚀 CF-优选-DO——两个节点覆盖不同优选线路。",
+                "测速节点列表结束。",
+                "测速地址：<code>https://www.gstatic.com/generate_204</code>——Google 204状态码测速地址。<span class='tag tag-tip'>💡 提示</span> gstatic.com 是Google静态资源域名，返回204空内容，测速开销极小。与1.13.11使用cp.cloudflare.com不同。",
+                "测速间隔：每 <strong>3分钟</strong> 执行一次全量测速。<span class='tag tag-info'>🔍 解惑</span> 3分钟间隔比1.13.11的10分钟更频繁，能更快响应网络变化，但也会消耗更多流量。",
+                "测速容差 <strong>50ms</strong>——仅当新节点延迟比当前节点低50ms以上才切换，防止频繁切换。",
+                "自动测速选路配置块结束（注意：本版本无 idle_timeout 和 interrupt_exist_connections 字段）。",
+                "<span class='tag tag-warn'>⚠️ 警告</span> VLESS 出站节点1——🚀 CF-优选-Visa。以下参数<strong>必须替换</strong>为你自己的节点信息！",
+                "该节点的标签标识 <code>🚀 CF-优选-Visa</code>。",
+                "节点服务器地址：<code>CF优选域名</code>——<strong>需替换</strong>为CF优选域名或实际IP地址。",
+                "节点服务端口：HTTPS标准 <strong>443</strong> 端口。",
+                "VLESS 协议认证 UUID：<code>uuid</code>——<strong>需替换</strong>为节点实际UUID。",
+                "<code>tcp_fast_open: false</code>——不启用TCP快速打开。<span class='tag tag-info'>🔍 解惑</span> TCP Fast Open（TFO）在某些网络环境下可能导致连接问题，设为false更稳定。如果网络支持可改为true加速连接。",
+                "TLS 加密配置块——HTTPS传输加密核心。注意：本版本TLS配置在transport之前。",
+                "开启 TLS 加密。",
+                "TLS SNI 扩展：<code>节点域名</code>——<strong>需替换</strong>为节点实际域名。",
+                "<code>insecure: false</code>——不跳过证书验证。<span class='tag tag-warn'>⚠️ 警告</span> 设为false意味着严格验证TLS证书，能有效防止中间人攻击。切勿设为true除非你完全理解风险。",
+                "TLS 加密配置块结束。",
+                "传输层配置块——WebSocket协议配置。注意：本版本headers中使用小写 <code>host</code>。",
+                "传输类型为 <code>ws</code>——WebSocket协议。",
+                "WebSocket 请求路径：<code>/路径</code>——<strong>需替换</strong>为节点实际后端路径。",
+                "WebSocket 请求头配置。",
+                "Host 请求头（小写）：<code>节点域名</code>——<strong>需替换</strong>为节点实际域名。<span class='tag tag-info'>🔍 解惑</span> 注意这里是<strong>小写</strong> <code>host</code>，与1.13.11的大写 <code>Host</code> 不同。HTTP头名称在HTTP/2中应小写，但在HTTP/1.1中大小写不敏感。",
+                "请求头配置块结束。",
+                "传输层配置块结束。",
+                "<code>network: tcp</code>——显式指定网络类型为TCP。<span class='tag tag-info'>🔍 解惑</span> 在1.11.4版本中，VLESS节点可能需要显式指定network字段。WebSocket本质上是基于TCP的，所以这里设为tcp是合理的。1.13.11版本已不需要此字段。",
+                "VLESS 节点1 配置块结束。",
+                "VLESS 出站节点2——🚀 CF-优选-DO。配置结构与节点1完全一致，仅标签和优选线路不同。",
+                "该节点的标签标识 <code>🚀 CF-优选-DO</code>。",
+                "节点服务器地址——<strong>需替换</strong>。",
+                "节点服务端口 443。",
+                "VLESS UUID——<strong>需替换</strong>。",
+                "不启用TCP快速打开。",
+                "TLS加密配置块。",
+                "开启TLS。",
+                "TLS SNI——<strong>需替换</strong>。",
+                "严格证书验证。",
+                "TLS配置块结束。",
+                "传输层配置块。",
+                "WebSocket协议。",
+                "WebSocket路径——<strong>需替换</strong>。",
+                "请求头配置。",
+                "Host请求头（小写）——<strong>需替换</strong>。",
+                "请求头配置块结束。",
+                "传输层配置块结束。",
+                "显式指定TCP网络类型。",
+                "VLESS 节点2 配置块结束。<span class='tag tag-tip'>💡 提示</span> 两个节点配置相同但走不同优选线路，urltest会自动选最快的。",
+                "出站连接配置块结束。",
+                "<span class='tag tag-notice'>📌 注意</span> 路由核心配置块。本版本规则集定义（rule_set）在路由规则（rules）之前，与1.13.11顺序相同。使用4个精简规则集，24小时更新一次。",
+                "远程规则集定义列表——定义所有需要远程加载的分流规则集。注意：本版本使用 raw.githubusercontent.com 作为下载源。",
+                "中国IP段规则集配置。",
+                "规则集类型为 <code>remote</code>——远程加载模式。",
+                "规则集的标签标识 <code>geoip-cn</code>——中国IP地址段。",
+                "规则集格式为 <code>binary</code>——sing-box专用.srs二进制格式。",
+                "规则集下载地址——GitHub raw 直链。<span class='tag tag-warn'>⚠️ 警告</span> 使用 raw.githubusercontent.com 在国内可能无法直接访问，需要依赖代理或镜像。",
+                "下载该规则集使用的转发出站——<code>direct</code> 直连。<span class='tag tag-info'>🔍 解惑</span> 如果直连无法访问raw.githubusercontent.com，可能需要改为proxy下载。",
+                "规则集自动更新间隔：每 <strong>24小时</strong> 更新一次（比1.13.11的48h更频繁）。",
+                "geoip-cn规则集配置块结束。",
+                "中国域名规则集配置。",
+                "规则集类型为 remote。",
+                "规则集的标签标识 <code>geosite-cn</code>——中国域名分类。",
+                "规则集格式为 binary。",
+                "规则集下载地址——sing-geosite中国域名规则。",
+                "下载使用的转发出站——direct。",
+                "更新间隔 24 小时。",
+                "geosite-cn规则集配置块结束。",
+                "境外站点规则集配置。",
+                "规则集类型为 remote。",
+                "规则集的标签标识 <code>geosite-geolocation-!cn</code>——非中国地理定位分类。<span class='tag tag-info'>🔍 解惑</span> 这是 sing-geosite 中覆盖面最广的境外站点分类，包含所有非中国地区的域名。",
+                "规则集格式为 binary。",
+                "规则集下载地址。",
+                "下载使用的转发出站——direct。",
+                "更新间隔 24 小时。",
+                "geosite-geolocation-!cn规则集配置块结束。",
+                "全量广告分类规则集配置。",
+                "规则集类型为 remote。",
+                "规则集的标签标识 <code>geosite-category-ads-all</code>——全量广告分类。",
+                "规则集格式为 binary。",
+                "规则集下载地址。",
+                "下载使用的转发出站——direct。",
+                "更新间隔 24 小时。",
+                "广告规则集配置块结束。",
+                "远程规则集定义列表结束（共4个规则集，远比1.13.11的15个精简）。",
+                "路由规则列表——按从上到下优先级匹配。<span class='tag tag-warn'>⚠️ 警告</span> 规则顺序至关重要！请勿随意调整。",
+                "<span class='tag tag-notice'>📌 注意</span> 全流量嗅探规则——开启流量域名/协议嗅探，精准识别流量类型。这是路由规则中的第一条，优先级最高。",
+                "执行 <code>sniff</code> 动作——开启全流量嗅探，获取域名和协议信息为后续规则匹配提供依据。",
+                "流量嗅探规则结束。",
+                "DNS 流量劫持规则——接管系统DNS请求。<span class='tag tag-info'>🔍 解惑</span> 与1.13.11使用logical+or组合不同，本版本直接用protocol匹配dns协议，更简洁。",
+                "匹配协议类型为 <code>dns</code> 的流量。",
+                "执行 <code>hijack-dns</code> 动作——劫持DNS流量到sing-box自身DNS模块处理。",
+                "DNS劫持规则结束。",
+                "私有IP地址直连规则——内网流量直连不走代理。",
+                "匹配目标IP为私有内网地址的流量（192.168.x.x、10.x.x.x等）。",
+                "匹配该规则的流量，走 <code>direct</code> 直连出站（注意小写标签）。",
+                "私有IP直连规则结束。",
+                "GitHub Raw域名直连规则——确保规则集能正常下载更新。<span class='tag tag-tip'>💡 提示</span> 这是关键规则——如果raw.githubusercontent.com走代理可能导致规则下载失败或速度慢，直连反而更可靠（在某些网络环境下）。",
+                "匹配的域名后缀：<code>raw.githubusercontent.com</code>。",
+                "匹配该规则的流量，走 <code>direct</code> 直连出站。",
+                "GitHub Raw直连规则结束。",
+                "广告域名拦截规则——路由层拦截广告流量。<span class='tag tag-tip'>💡 提示</span> DNS层已经拦截了广告域名的解析，路由层再拦截一次，双重保障。",
+                "匹配的广告规则集：<code>geosite-category-ads-all</code>。",
+                "匹配到广告域名时执行 <code>reject</code> 拒绝动作——直接阻断连接。",
+                "广告拦截规则结束。",
+                "国内站点规则集直连规则——中国域名+中国IP双规则集叠加。<span class='tag tag-info'>🔍 解惑</span> 同时匹配 geosite-cn（域名）和 geoip-cn（IP），覆盖更全面——域名在中国列表中的走直连，IP在中国的也走直连。",
+                "匹配的规则集列表：<code>geosite-cn</code> + <code>geoip-cn</code>。",
+                "匹配该规则的流量，走 <code>direct</code> 直连出站。",
+                "国内规则集直连规则结束。",
+                ".cn 域名后缀直连规则——所有 .cn 顶级域名强制直连。<span class='tag tag-tip'>💡 提示</span> 这是一个简单粗暴但有效的规则：.cn域名几乎都是国内站点，直连即可。作为规则集的补充。",
+                "匹配的域名后缀：<code>.cn</code>——中国国家顶级域名。",
+                "匹配该规则的流量，走 <code>direct</code> 直连出站。",
+                ".cn直连规则结束。",
+                "境外站点规则集代理规则——所有非中国地区域名走代理。<span class='tag tag-info'>🔍 解惑</span> 这是“白名单”策略的核心：国内已知站点直连，境外站点全部走代理。geosite-geolocation-!cn 覆盖了绝大部分境外域名。",
+                "匹配的规则集：<code>geosite-geolocation-!cn</code>——非中国地理定位分类。",
+                "匹配该规则的流量，走 <code>proxy</code> 代理出站（注意小写标签）。",
+                "境外站点代理规则结束。",
+                "路由规则列表结束。",
+                "<span class='tag tag-warn'>⚠️ 警告</span> 路由最终兜底出站：<code>proxy</code>——所有未匹配以上规则的流量<strong>默认走代理出站</strong>。这是“白名单”策略：已知国内站点直连，其余全部走代理。安全性高但可能把部分小众国内站点也代理了。",
+                "开启自动检测网络接口——避免多网卡环境下路由异常和流量泄露。",
+                "路由核心配置块结束。",
+                "实验性功能配置块——包含缓存持久化和Clash API兼容功能。",
+                "缓存文件配置块——持久化缓存RDRC等数据。<span class='tag tag-info'>🔍 解惑</span> 本版本使用 <code>store_rdrc</code>（存储RDRC缓存）而非1.13.11的 <code>store_fakeip</code>。RDRC（Response Discrepancy Resolution Cache）用于缓存DNS响应差异解析结果。",
+                "开启缓存文件核心功能。",
+                "缓存文件存放路径：<code>sing-box-cache.db</code>——SQLite数据库文件。",
+                "<code>store_rdrc: true</code>——开启RDRC缓存持久化。<span class='tag tag-info'>🔍 解惑</span> RDRC缓存存储了不同DNS解析器返回结果的差异信息，帮助sing-box智能选择最优解析路径。与FakeIP缓存是不同的机制。",
+                "缓存文件配置块结束。",
+                "Clash API 配置块——兼容Clash控制面板。",
+                "Clash API 外部控制器监听地址：<code>127.0.0.1:9090</code>。",
+                "Web UI 文件存放目录：<code>ui</code> 文件夹。",
+                "Web UI 压缩包下载地址——GitHub直链（非jsdelivr CDN）。<span class='tag tag-warn'>⚠️ 警告</span> 此地址在国内可能无法直接访问，可能需要代理下载。",
+                "Web UI 下载使用的出站——<code>direct</code> 直连。<span class='tag tag-info'>🔍 解惑</span> 如果直连无法下载Web UI，可改为proxy。注意本版本没有secret和default_mode字段（1.13.11新增）。",
+                "Clash API 配置块结束。",
+                "实验性功能配置块结束。",
+                "sing-box 完整配置根对象结束。<span class='tag tag-tip'>💡 提示</span> 核心特点：四层DNS架构、RDRC缓存、精简规则集（4个）、小写标签风格。复制「配置代码」列内容，替换占位符后即可使用。"
+            ];
 
-    // 渲染表格
-    function renderTable() {
-        const tbody = document.getElementById('table-body');
-        let html = '';
-        for (let i = 0; i < configLines.length; i++) {
-            html += '<tr>';
-            html += '<td class="line-num">' + (i + 1) + '</td>';
-            html += '<td class="code-cell">' + escapeHtml(configLines[i]) + '</td>';
-            html += '<td class="comment-cell">' + escapeHtml(comments[i] || '') + '</td>';
-            html += '</tr>';
-        }
-        tbody.innerHTML = html;
-    }
-
-    // 一键复制完整配置功能
-    function initCopyBtn() {
-        const copyBtn = document.getElementById('copyConfigBtn');
-        const fullConfig = configLines.join('\n');
-        
-        copyBtn.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText(fullConfig);
-                copyBtn.textContent = '✅ 复制成功';
-                copyBtn.classList.add('success');
-                setTimeout(() => {
-                    copyBtn.textContent = '📋 一键复制完整配置';
-                    copyBtn.classList.remove('success');
-                }, 2000);
-            } catch (err) {
-                // 降级方案
-                const textarea = document.createElement('textarea');
-                textarea.value = fullConfig;
-                textarea.style.position = 'fixed';
-                textarea.style.opacity = '0';
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                
-                copyBtn.textContent = '✅ 复制成功';
-                copyBtn.classList.add('success');
-                setTimeout(() => {
-                    copyBtn.textContent = '📋 一键复制完整配置';
-                    copyBtn.classList.remove('success');
-                }, 2000);
+            const tbody = document.getElementById('table-body');
+            let html = '';
+            const highlightLines = new Set([1, 6, 7, 28, 29, 48, 49, 57, 65, 69, 75, 82, 90, 100, 114, 121, 130, 150, 152, 168, 179, 183, 199, 207, 218]);
+            for (let i = 0; i < configLines.length; i++) {
+                const isHL = highlightLines.has(i + 1);
+                html += '<tr' + (isHL ? ' class="highlight-row"' : '') + '>';
+                html += '<td class="line-num">' + (i + 1) + '</td>';
+                html += '<td class="code-cell">' + configLines[i].replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</td>';
+                html += '<td class="comment-cell">' + (comments[i] || '') + '</td>';
+                html += '</tr>';
             }
-        });
-    }
+            tbody.innerHTML = html;
 
-    // 日夜模式切换功能修复
-    function initThemeSwitcher() {
-        const themeBtns = document.querySelectorAll('.theme-btn');
-        const body = document.body;
-        
-        function setTheme(theme) {
-            body.classList.remove('light', 'dark');
-            if (theme === 'light') {
-                body.classList.add('light');
-            } else if (theme === 'dark') {
-                body.classList.add('dark');
+            const themeBtns = document.querySelectorAll('.theme-btn');
+            const bodyEl = document.body;
+            function setTheme(theme) {
+                bodyEl.classList.remove('light', 'dark');
+                if (theme === 'light') bodyEl.classList.add('light');
+                else if (theme === 'dark') bodyEl.classList.add('dark');
+                localStorage.setItem('sb-theme-114', theme);
+                themeBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
             }
-            localStorage.setItem('singbox_theme', theme);
-            
-            // 更新按钮激活状态
+            const savedTheme = localStorage.getItem('sb-theme-114') || 'auto';
+            if (savedTheme !== 'auto') setTheme(savedTheme);
+            else themeBtns.forEach(b => b.classList.toggle('active', b.dataset.theme === 'auto'));
             themeBtns.forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.theme === theme);
+                btn.addEventListener('click', () => {
+                    const t = btn.dataset.theme;
+                    if (t === 'auto') {
+                        bodyEl.classList.remove('light', 'dark');
+                        themeBtns.forEach(b => b.classList.toggle('active', b.dataset.theme === 'auto'));
+                        localStorage.setItem('sb-theme-114', 'auto');
+                    } else setTheme(t);
+                });
             });
-        }
-
-        // 初始化主题
-        const savedTheme = localStorage.getItem('singbox_theme') || 'auto';
-        if (savedTheme !== 'auto') {
-            setTheme(savedTheme);
-        }
-
-        // 绑定按钮事件
-        themeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const theme = btn.dataset.theme;
-                setTheme(theme);
-            });
-        });
-    }
-
-    // 页面加载完成后初始化
-    document.addEventListener('DOMContentLoaded', () => {
-        renderTable();
-        initCopyBtn();
-        initThemeSwitcher();
-    });
-})();
-</script>
+        })();
+    </script>
 </body>
 </html>
